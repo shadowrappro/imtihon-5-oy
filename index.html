@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Imtihon</title>
+  </head>
+  <body class="container">
+
+    <div class="top">
+        <a class="botirdev" target="_blank" href="https://botirdev.uz/">BOTIRDEV</a>
+
+        <button id="addButton" class="add-btn">Add Car</button>
+
+        <img src="./img/dark-mode.png" id="dark-mode" width="32px" height="32px" alt="">
+    </div>
+
+    <div id="myToast" class="true"></div>
+
+    <div id="carsContainer"></div>
+
+    <template id="carsTemplate">
+      <div class="car-div">
+        <h5 class="car-title"></h5>
+        
+        <p class="car-paragreff"></p>
+
+        <p class="cars-country">Country: <span class="car-country"></span></p> 
+
+        <p class="cars-turkum">Turkum: <span class="car-turkum"></span></p> 
+
+        <p class="cars-color">Color: <span class="car-color"></span>
+          <span class="car-colorName"></span>
+        </p>
+
+        <div class="buttons">
+
+          <img class="delete-btn" src="./img/trash.png" width="32px" height="32px" alt="Delete">
+          <img class="edit-btn" src="./img/edit.png" width="31px" height="31px" alt="Edit">
+          <img class="info-btn" src="./img/info.png" width="31px" height="31px" alt="Info">
+
+        </div>
+      </div>
+    </template>
+
+    <!-- Add Modal -->
+    <div id="addModal" class="add-modal hidden">
+      <div class="modal-top">
+        <h2>Add Car</h2>
+        <img id="close" src="img/close.svg" alt="" width="25" height="25" />
+      </div>
+
+      <div>
+        <form id="carForm">
+            <div class="form-section">
+                <div class="form-section-title">Asosiy Ma'lumotlar</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="addName" class="label-car-name">Mashina Nomi</label>
+                        <input type="text" id="addName" class="add-name" name="name" placeholder="Masalan: Volvo S90" required value="Volvo S90">
+                    </div>
+                    <div class="form-group">
+                        <label for="addTrim" class="label-add-trim">Trim</label>
+                        <input type="text" id="addTrim" class="add-trim" name="trim" placeholder="Masalan: Inscription" required value="Inscription">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="addGeneration" class="label-add-generation">Avlod</label>
+                        <input type="text" id="addGeneration" class="add-generation" name="generation" placeholder="Masalan: Ikkinchi" value="Ikkinchi">
+                    </div>
+                    <div class="form-group">
+                        <label for="addYear" class="label-add-year">Ishlab Chiqarilgan Yil</label>
+                        <input type="number" id="addYear" class="add-year" name="year" min="1900" max="2099" placeholder="Masalan: 2022" required value="2022">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="addCategory" class="label-add-category">Kategoriya</label>
+                        <select id="addCategory" class="add-category" name="category" required>
+                            <option value="">Kategoriyani tanlang</option>
+                            <option value="Sedan" selected>Sedan</option>
+                            <option value="SUV">SUV</option>
+                            <option value="Hatchback">Hatchback</option>
+                            <option value="Coupe">Kupe</option>
+                            <option value="Convertible">Convertible</option>
+                            <option value="Minivan">Minivan</option>
+                            <option value="Pickup">Pikap</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="addCountry" class="label-add-country">Mamlakat</label>
+                        <input type="text" id="addCountry" class="add-country" name="country" placeholder="Masalan: Shvetsiya" value="Shvetsiya">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="form-section-title">Rang Ma'lumotlari</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="addColorCode" class="label-add-color-code">Rang Kodi <span id="colorPreview" class="color-preview" style="background-color: #FFFFF5"></span></label>
+                        <input type="text" id="addColorCode" class="add-color-code" name="colorCode" placeholder="Masalan: #FFFFF5" value="#FFFFF5">
+                    </div>
+                    <div class="form-group">
+                        <label for="addColorName" class="label-add-color-name">Rang Nomi</label>
+                        <input type="text" id="addColorName" class="add-color-name" name="colorName" placeholder="Masalan: Oq" value="Oq">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="form-section-title">Texnik Xususiyatlar</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="addDoorCount" class="label-add-door-count">Eshiklar Soni</label>
+                        <input type="number" id="addDoorCount" class="add-door-count" name="doorCount" min="1" max="10" placeholder="Masalan: 4" value="4">
+                    </div>
+                    <div class="form-group">
+                        <label for="addSeatCount" class="label-add-seat-count">O'rindiqlar Soni</label>
+                        <input type="number" id="addSeatCount" class="add-seat-count" name="seatCount" min="1" max="20" placeholder="Masalan: 5" value="5">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="addMaxSpeed" class="label-add-max-speed">Maksimal Tezlik</label>
+                        <input type="text" id="addMaxSpeed" class="add-max-speed" name="maxSpeed" placeholder="Masalan: 230 km/h" value="230 km/h">
+                    </div>
+                    <div class="form-group">
+                        <label for="addAcceleration" class="label-add-acceleration">Tezlanish</label>
+                        <input type="text" id="addAcceleration" class="add-acceleration" name="acceleration" placeholder="Masalan: 0-100 km/h: 6.8s" value="0-100 km/h: 6.8s">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="addEngine" class="label-add-engine">Dvigatel</label>
+                        <input type="text" id="addEngine" class="add-engine" name="engine" placeholder="Masalan: 2.0L Twin-Charger" value="2.0L Twin-Charger">
+                    </div>
+                    <div class="form-group">
+                        <label for="addHorsepower" class="label-add-horsepower">Ot Kuchi</label>
+                        <input type="number" id="addHorsepower" class="add-horsepower" name="horsepower" min="0" placeholder="Masalan: 310" value="310">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="addFuelType" class="label-add-fuel-type">Yoqilg'i Turi</label>
+                        <select id="addFuelType" class="add-fuel-type" name="fuelType">
+                            <option value="">Yoqilg'i turini tanlang</option>
+                            <option value="Benzin" selected>Benzin</option>
+                            <option value="Dizel">Dizel</option>
+                            <option value="Elektro">Elektro</option>
+                            <option value="Gibrid">Gibrid</option>
+                            <option value="Gaz">Gaz</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="addFuelConsumptionCity" class="label-add-fuel-consumption-city">Shaharda Yoqilg'i Sarfi (L/100km)</label>
+                        <input type="text" id="addFuelConsumptionCity" class="add-fuel-consumption-city" name="fuelConsumptionCity" placeholder="Masalan: 10.8 L/100km" value="10.8 L/100km">
+                    </div>
+                    <div class="form-group">
+                        <label for="addFuelConsumptionHighway" class="label-add-fuel-consumption-highway">Trassada Yoqilg'i Sarfi (L/100km)</label>
+                        <input type="text" id="addFuelConsumptionHighway" class="add-fuel-consumption-highway" name="fuelConsumptionHighway" placeholder="Masalan: 7.6 L/100km" value="7.6 L/100km">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="addFuelConsumptionCombined" class="label-add-fuel-consumption-combined">Aralash Yoqilg'i Sarfi (L/100km)</label>
+                        <input type="text" id="addFuelConsumptionCombined" class="add-fuel-consumption-combined" name="fuelConsumptionCombined" placeholder="Masalan: 9.0 L/100km" value="9.0 L/100km">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="form-section-title">Qo'shimcha Ma'lumotlar</div>
+                <div class="form-row">
+                    <div class="form-group" style="flex: 1 0 100%;">
+                        <label for="addDescription" class="label-add-description">Tavsif</label>
+                        <textarea id="addDescription" class="add-description" name="description" placeholder="Mashina haqida qisqacha tavsif...">Skandinaviya uslubidagi lyuks sedan</textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" id="addSubmit" class="add-btn-submit">Ma'lumotlarni Saqlash</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="editModal" class="edit-modal hidden">
+        <div class="modal-top">
+          <h2>Edit Car</h2>
+          <img id="editClose" src="img/close.svg" alt="" width="25" height="25" />
+        </div>
+
+        <div>
+          <form id="carForm">
+              <div class="form-section">
+                  <div class="form-section-title">Asosiy Ma'lumotlar</div>
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="editName" class="label-car-name">Mashina Nomi</label>
+                          <input type="text" id="editName" class="add-name" name="name" placeholder="Masalan: Volvo S90" required value="Volvo S90">
+                      </div>
+                      <div class="form-group">
+                          <label for="editTrim" class="label-add-trim">Trim</label>
+                          <input type="text" id="editTrim" class="add-trim" name="trim" placeholder="Masalan: Inscription" required value="Inscription">
+                      </div>
+                  </div>
+              
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="editGeneration" class="label-add-generation">Avlod</label>
+                          <input type="text" id="editGeneration" class="add-generation" name="generation" placeholder="Masalan: Ikkinchi" value="Ikkinchi">
+                      </div>
+                      <div class="form-group">
+                          <label for="editYear" class="label-add-year">Ishlab Chiqarilgan Yil</label>
+                          <input type="number" id="editYear" class="add-year" name="year" min="1900" max="2099" placeholder="Masalan: 2022" required value="2022">
+                      </div>
+                  </div>
+              
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="editCategory" class="label-add-category">Kategoriya</label>
+                          <select id="editCategory" class="add-category" name="category" required>
+                              <option value="">Kategoriyani tanlang</option>
+                              <option value="Sedan" selected>Sedan</option>
+                              <option value="SUV">SUV</option>
+                              <option value="Hatchback">Hatchback</option>
+                              <option value="Coupe">Kupe</option>
+                              <option value="Convertible">Convertible</option>
+                              <option value="Minivan">Minivan</option>
+                              <option value="Pickup">Pikap</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="editCountry" class="label-add-country">Mamlakat</label>
+                          <input type="text" id="editCountry" class="add-country" name="country" placeholder="Masalan: Shvetsiya" value="Shvetsiya">
+                      </div>
+                  </div>
+              </div>
+          
+              <div class="form-section">
+                  <div class="form-section-title">Rang Ma'lumotlari</div>
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="editColorCode" class="label-add-color-code">Rang Kodi <span id="colorPreview" class="color-preview" style="background-color: #FFFFF5"></span></label>
+                          <input type="text" id="editColorCode" class="add-color-code" name="colorCode" placeholder="Masalan: #FFFFF5" value="#FFFFF5">
+                      </div>
+                      <div class="form-group">
+                          <label for="editColorName" class="label-add-color-name">Rang Nomi</label>
+                          <input type="text" id="editColorName" class="add-color-name" name="colorName" placeholder="Masalan: Oq" value="Oq">
+                      </div>
+                  </div>
+              </div>
+          
+              <div class="form-section">
+                  <div class="form-section-title">Texnik Xususiyatlar</div>
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="editDoorCount" class="label-add-door-count">Eshiklar Soni</label>
+                          <input type="number" id="editDoorCount" class="add-door-count" name="doorCount" min="1" max="10" placeholder="Masalan: 4" value="4">
+                      </div>
+                      <div class="form-group">
+                          <label for="editSeatCount" class="label-add-seat-count">O'rindiqlar Soni</label>
+                          <input type="number" id="editSeatCount" class="add-seat-count" name="seatCount" min="1" max="20" placeholder="Masalan: 5" value="5">
+                      </div>
+                  </div>
+              
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="editMaxSpeed" class="label-add-max-speed">Maksimal Tezlik</label>
+                          <input type="text" id="editMaxSpeed" class="add-max-speed" name="maxSpeed" placeholder="Masalan: 230 km/h" value="230 km/h">
+                      </div>
+                      <div class="form-group">
+                          <label for="editAcceleration" class="label-add-acceleration">Tezlanish</label>
+                          <input type="text" id="editAcceleration" class="add-acceleration" name="acceleration" placeholder="Masalan: 0-100 km/h: 6.8s" value="0-100 km/h: 6.8s">
+                      </div>
+                  </div>
+              
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="editEngine" class="label-add-engine">Dvigatel</label>
+                          <input type="text" id="editEngine" class="add-engine" name="engine" placeholder="Masalan: 2.0L Twin-Charger" value="2.0L Twin-Charger">
+                      </div>
+                      <div class="form-group">
+                          <label for="editHorsepower" class="label-add-horsepower">Ot Kuchi</label>
+                          <input type="number" id="editHorsepower" class="add-horsepower" name="horsepower" min="0" placeholder="Masalan: 310" value="310">
+                      </div>
+                  </div>
+              
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="editFuelType" class="label-add-fuel-type">Yoqilg'i Turi</label>
+                          <select id="editFuelType" class="add-fuel-type" name="fuelType">
+                              <option value="">Yoqilg'i turini tanlang</option>
+                              <option value="Benzin" selected>Benzin</option>
+                              <option value="Dizel">Dizel</option>
+                              <option value="Elektro">Elektro</option>
+                              <option value="Gibrid">Gibrid</option>
+                              <option value="Gaz">Gaz</option>
+                          </select>
+                      </div>
+                  </div>
+              
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="editFuelConsumptionCity" class="label-add-fuel-consumption-city">Shaharda Yoqilg'i Sarfi (L/100km)</label>
+                          <input type="text" id="editFuelConsumptionCity" class="add-fuel-consumption-city" name="fuelConsumptionCity" placeholder="Masalan: 10.8 L/100km" value="10.8 L/100km">
+                      </div>
+                      <div class="form-group">
+                          <label for="editFuelConsumptionHighway" class="label-add-fuel-consumption-highway">Trassada Yoqilg'i Sarfi (L/100km)</label>
+                          <input type="text" id="editFuelConsumptionHighway" class="add-fuel-consumption-highway" name="fuelConsumptionHighway" placeholder="Masalan: 7.6 L/100km" value="7.6 L/100km">
+                      </div>
+                  </div>
+              
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="editFuelConsumptionCombined" class="label-add-fuel-consumption-combined">Aralash Yoqilg'i Sarfi (L/100km)</label>
+                          <input type="text" id="editFuelConsumptionCombined" class="add-fuel-consumption-combined" name="fuelConsumptionCombined" placeholder="Masalan: 9.0 L/100km" value="9.0 L/100km">
+                      </div>
+                  </div>
+              </div>
+          
+              <div class="form-section">
+                  <div class="form-section-title">Qo'shimcha Ma'lumotlar</div>
+                  <div class="form-row">
+                      <div class="form-group" style="flex: 1 0 100%;">
+                          <label for="editDescription" class="label-add-description">Tavsif</label>
+                          <textarea id="editDescription" class="add-description" name="description" placeholder="Mashina haqida qisqacha tavsif...">Skandinaviya uslubidagi lyuks sedan</textarea>
+                      </div>
+                  </div>
+              </div>
+          
+              <button type="submit" id="editSubmit" class="add-btn-submit">Ma'lumotlarni Saqlash</button>
+          </form>
+        </div>
+
+    </div>
+
+    <div id="infoModal" class="info-modal hidden">
+      <div class="modal-top">
+        <h2>About Car</h2>
+        <img id="infoClose" src="img/close.svg" alt="" width="25" height="25" />
+      </div>
+
+        <div class="infoContainer">
+            <h3 class="infoMainName">Asosiy Ma'lumotlar</h3>        
+            <div class="infoDiv">
+                <p class="infoClass">Nomi: <span id="infoName"></span></p>
+                <p class="infoClass">Trim: <span id="infoTrim"></span></p>
+            </div>      
+            <div class="infoDiv">
+                <p class="infoClass">Avlod: <span id="infoAvlod"></span></p>
+                <p class="infoClass">Yili: <span id="infoYear"></span></p>
+            </div>      
+            <div class="infoDiv">
+                <p class="infoClass">Kategoriya: <span id="infoKategoriya"></span></p>
+                <p class="infoClass">Mamlakat: <span id="infoMamlakat"></span></p>
+            </div>      
+            <h3 class="infoMainName">Rang Ma'lumotlar</h3>      
+            <div class="infoDiv">
+                <p class="infoClass elColorr">Rangi: <span id="infoRangKodi"></span>
+                <span id="infoRangNomi"></span>
+                </p>
+            </div>      
+            <h3 class="infoMainName">Texnik Xususiyatlari</h3>      
+            <div class="infoDiv">
+                <p class="infoClass">Eshiklar soni: <span id="infoEshikSoni"></span></p>
+                <p class="infoClass">O'rindiqlar soni: <span id="infoOrindiqSoni"></span></p>
+            </div>      
+            <div class="infoDiv">
+                <p class="infoClass">Maksimal tezlik: <span id="infoMaksTezlik"></span></p>
+                <p class="infoClass">Tezlanish: <span id="InfoTezlanish"></span></p>
+            </div>      
+            <div class="infoDiv">
+                <p class="infoClass">Dvigatel: <span id="infoDvigatel"></span></p>
+                <p class="infoClass">ot kuchi: <span id="infoOtKuch"></span></p>
+            </div>      
+            <div class="infoDiv">
+                <p class="infoClass">Yoqilg'i turi: <span id="infoYoqilgi"></span></p>
+            </div>      
+            <div class="infoDiv">
+                <p class="infoClass">Shaharda yoqilg'i sarfi(L/100km): <span id="infoShYS"></span></p>
+                <p class="infoClass">Trassada yoqilg'i sarfi(L/100km): <span id="infoTYS"></span></p>
+            </div>      
+            <div class="infoDiv">
+                <p class="infoClass">Aralash yoqilg'i sarfi(L/100km) <span id="infoAYS"></span></p>
+            </div>      
+            <h3 class="infoMainName">Qo'shimcha Ma'lumotlar</h3>        
+            <div class="infoDiv">
+                <p class="infoClass">Tavsif: <span id="infoTavsif"></span></p>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="overlay" class="overlay hidden"></div>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
