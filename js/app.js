@@ -132,6 +132,7 @@ elAddSubmit.addEventListener("click", (evt) => {
 
     elAddModal.classList.add("hidden")
     elOverlay.classList.add("hidden")
+    elBody.classList.remove("overfloww")
     emptyInput();
     showTrue("Model muvaffaqiyatli qo'shildi")
 })
