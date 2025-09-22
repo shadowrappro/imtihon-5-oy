@@ -188,7 +188,7 @@ transition: background-color 0.5s ease, color 0.5s ease;
     margin-left: 50px;
     margin-right: auto;
     width: 1100px;
-    height: 940px;
+    max-height: 90vh; 
     background: white;
     backdrop-filter: blur(3px);
     z-index: 20;
@@ -264,12 +264,12 @@ transition: background-color 0.5s ease, color 0.5s ease;
     margin-left: 50px;
     margin-right: auto;
     width: 1100px;
-    height: 940px;
+    max-height: 90vh; 
     background: white;
     backdrop-filter: blur(3px);
     z-index: 20;
     border-radius: 16px;
-    overflow-y: scroll; 
+    overflow-y: scroll;
 }
 
 .info-modal {
@@ -279,7 +279,7 @@ transition: background-color 0.5s ease, color 0.5s ease;
     margin-left: 50px;
     margin-right: auto;
     width: 1100px;
-    height: 940px;
+    max-height: 90vh; 
     background: white;
     backdrop-filter: blur(3px);
     z-index: 20;
