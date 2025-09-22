@@ -183,6 +183,7 @@ transition: background-color 0.5s ease, color 0.5s ease;
 
 .add-modal {
     position: fixed;
+    overflow-y: scroll; 
     top: 10px;
     margin-left: 50px;
     margin-right: auto;
@@ -268,10 +269,12 @@ transition: background-color 0.5s ease, color 0.5s ease;
     backdrop-filter: blur(3px);
     z-index: 20;
     border-radius: 16px;
+    overflow-y: scroll; 
 }
 
 .info-modal {
     position: fixed;
+    overflow-y: scroll; 
     top: 10px;
     margin-left: 50px;
     margin-right: auto;
