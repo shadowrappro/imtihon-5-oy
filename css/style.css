@@ -221,10 +221,6 @@ transition: background-color 0.5s ease, color 0.5s ease;
     color: black;
 }
 
-.overfloww {
-    overflow: hidden;
-}
-
 .modal-top {
     display: flex;
     padding-left: 20px;
